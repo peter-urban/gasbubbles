@@ -1,0 +1,47 @@
+# SPDX-FileCopyrightText: 2026 Peter Urban
+#
+# SPDX-License-Identifier: CC0-1.0
+
+name: rattler packages
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "*.md"
+      - "doc/*"
+  pull_request:
+    branches: [main]
+    paths-ignore:
+      - "*.md"
+      - "doc/*"
+
+jobs:
+  build:
+    name: Build package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Build conda package
+        uses: prefix-dev/rattler-build-action@v0.2.34
+        with:
+          artifact-name: package-noarch
+          build-args: --channel themachinethatgoesping --channel https://prefix.dev/conda-forge
+
+      - name: Upload to Anaconda
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          # Install anaconda-client
+          pip install anaconda-client
+          
+          PACKAGE_DIR="output"
+          
+          # Upload all .conda and .tar.bz2 files
+          find $PACKAGE_DIR -name "*.conda" -o -name "*.tar.bz2" | while read package; do
+            echo "Uploading ${package}"
+            anaconda -t $ANACONDA_API_TOKEN upload --user themachinethatgoesping --force "${package}"
+          done
+        shell: bash
+        env:
+          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_API_TOKEN }}

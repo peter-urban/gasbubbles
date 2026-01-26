@@ -1,0 +1,14 @@
+# SPDX-FileCopyrightText: 2026 Peter Urban
+#
+# SPDX-License-Identifier: CC0-1.0
+
+# Options for gasbubbles build
+
+option('build_pythonmodule', type: 'feature', value: 'enabled',
+       description: 'Build and install the python module')
+
+option('pydev_install', type: 'feature', value: 'disabled', 
+       description: 'Install python sources for development (editable install)')
+
+option('python_path', type: 'string', value: 'python',
+       description: 'Path to python interpreter')

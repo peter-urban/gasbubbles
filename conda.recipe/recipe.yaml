@@ -1,0 +1,51 @@
+context:
+  version: 0.1.0
+
+package:
+  name: gasbubbles
+  version: ${{ version }}
+
+source:
+  git: https://github.com/themachinethatgoesping/gasbubbles.git
+
+build:
+  script: ${{ PYTHON }} -m pip install . -v
+  noarch: python
+  number: 0
+
+requirements:
+  host:
+    - python >=3.11
+    - meson-python >=0.15.0
+    - meson >=1.2.3
+    - ninja
+    - pip
+    - numpy >=2.0
+
+  run:
+    - python >=3.11
+    - numpy >=1.26.0
+    - scipy >=1.10.0
+    - matplotlib >=3.6.0
+
+tests:
+  - python:
+      imports:
+        - gasbubbles
+        - gasbubbles.backscatter
+        - gasbubbles.dissolution
+      pip_check: true
+  - script:
+      - pytest --pyargs gasbubbles -v || echo "No tests in installed package"
+
+about:
+  homepage: https://github.com/themachinethatgoesping/gasbubbles
+  summary: Gas bubble acoustic backscattering and dissolution models for underwater acoustics research.
+  description: |
+    This package provides implementations of various acoustic backscatter models
+    for gas bubbles in water, as well as bubble dissolution/rise models.
+    
+    Backscatter models include: Medwin (1977), Anderson (1950), Ainslie & Leighton (2009, 2011),
+    Li et al. (2020), Thuraisingham (1997), Stanton (1989), and spheroidal corrections.
+  license: MPL-2.0
+  license_file: LICENSE

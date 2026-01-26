@@ -1,0 +1,106 @@
+# SPDX-FileCopyrightText: 2026 Peter Urban, Urcoustics
+#
+# SPDX-License-Identifier: CC0-1.0
+
+# Build configuration for gasbubbles
+
+[build-system]
+requires = [
+    'meson-python >= 0.15.0',
+    'meson >= 1.2.3',
+    'pyproject-metadata',
+    'ninja >= 1.10',
+    'numpy >= 2.0',
+]
+build-backend = 'mesonpy'
+
+[project]
+name = 'gasbubbles'
+dynamic = [
+    'version',
+]
+description = 'Gas bubble acoustic backscattering and dissolution models for underwater acoustics research.'
+readme = 'README.md'
+license = { file = 'LICENSE' }
+keywords = [
+    'acoustics',
+    'bubbles',
+    'backscatter',
+    'sonar',
+    'methane',
+    'ocean',
+    'seep',
+    'hydroacoustics',
+    'dissolution',
+]
+authors = [
+    {name = 'Peter Urban', email = 'peter.urban@urcoustics.com'}
+]
+
+
+requires-python = '>=3.11, <3.15'
+dependencies = [
+    'numpy >= 1.26.0',
+    'scipy >= 1.10.0',
+    'matplotlib >= 3.6.0', "echosms>=0.17.0,<0.18",
+]
+
+[project.optional-dependencies]
+echosms = [
+    'echosms',
+]
+test = [
+    'pytest >= 7.0',
+]
+dev = [
+    'pytest >= 7.0',
+    'echosms',
+]
+
+[project.urls]
+
+# -- cibuildwheel options ---
+[tool.cibuildwheel]
+skip = 'pp* *musllinux*'
+test-requires = 'pytest'
+test-command = 'cd {project} && pytest'
+
+# -- pytest options ---
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q"
+testpaths = [
+    "python/tests",
+]
+
+# -- meson-python options ---
+[tool.meson-python.args]
+setup = ["--default-library=static"]
+compile = []
+install = ['--tags=runtime,python-runtime']
+
+[tool.pixi.workspace]
+channels = ["conda-forge"]
+platforms = ["linux-64"]
+
+[tool.pixi.dependencies]
+jupyterlab = ">=4.5.3,<5"
+pip = ">=25.3,<26"
+pytest = ">=9.0.2,<10"
+ipympl = ">=0.10.0,<0.11"
+tqdm = ">=4.67.1,<5"
+pandas = ">=3.0.0,<4"
+
+# Note: We don't use pixi pypi-dependencies for editable installs with meson-python
+# because it caches temporary build tool paths. Use 'pixi run dev-install' instead.
+
+[tool.pixi.environments]
+default = { solve-group = "default" }
+dev = { features = ["dev"], solve-group = "default" }
+echosms = { features = ["echosms"], solve-group = "default" }
+test = { features = ["test"], solve-group = "default" }
+
+[tool.pixi.tasks]
+init = "pip install ."
+test = { cmd = "pytest python/tests/", depends-on = ["init"] }
+jupyter = { cmd = "jupyter lab ipynb", depends-on = ["init"] }
