@@ -6,7 +6,7 @@ package:
   version: ${{ version }}
 
 source:
-  git: https://github.com/themachinethatgoesping/gasbubbles.git
+  git: https://github.com/peter-urban/gasbubbles.git
 
 build:
   script: ${{ PYTHON }} -m pip install . -v
@@ -39,7 +39,7 @@ tests:
       - pytest --pyargs gasbubbles -v || echo "No tests in installed package"
 
 about:
-  homepage: https://github.com/themachinethatgoesping/gasbubbles
+  homepage: https://github.com/peter-urban/gasbubbles
   summary: Gas bubble acoustic backscattering and dissolution models for underwater acoustics research.
   description: |
     This package provides implementations of various acoustic backscatter models
