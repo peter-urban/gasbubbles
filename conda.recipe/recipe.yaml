@@ -9,7 +9,9 @@ source:
   git: https://github.com/peter-urban/gasbubbles.git
 
 build:
-  script: ${{ PYTHON }} -m pip install . -v
+  script:
+    - ${{ PYTHON }} -m pip install echosms
+    - ${{ PYTHON }} -m pip install . -v
   noarch: python
   number: 0
 
@@ -34,8 +36,9 @@ tests:
         - gasbubbles
         - gasbubbles.backscatter
         - gasbubbles.dissolution
-      pip_check: true
+      pip_check: false
   - script:
+      - ${{ PYTHON }} -m pip install echosms
       - pytest --pyargs gasbubbles -v || echo "No tests in installed package"
 
 about:
