@@ -10,7 +10,6 @@ source:
 
 build:
   script:
-    - ${{ PYTHON }} -m pip install echosms
     - ${{ PYTHON }} -m pip install . -v
   noarch: python
   number: 0
@@ -38,7 +37,6 @@ tests:
         - gasbubbles.dissolution
       pip_check: false
   - script:
-      - ${{ PYTHON }} -m pip install echosms
       - pytest --pyargs gasbubbles -v || echo "No tests in installed package"
 
 about:
