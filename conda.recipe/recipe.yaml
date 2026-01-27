@@ -17,7 +17,7 @@ build:
 
 requirements:
   host:
-    - python >=3.11
+    - python >=3.11,<3.14
     - meson-python >=0.15.0
     - meson >=1.2.3
     - ninja
@@ -25,7 +25,7 @@ requirements:
     - numpy >=2.0
 
   run:
-    - python >=3.11
+    - python >=3.11,<3.14
     - numpy >=1.26.0
     - scipy >=1.10.0
     - matplotlib >=3.6.0
