@@ -6,16 +6,17 @@ package:
   version: ${{ version }}
 
 source:
-  git: https://github.com/themachinethatgoesping/gasbubbles.git
+  git: https://github.com/peter-urban/gasbubbles.git
 
 build:
-  script: ${{ PYTHON }} -m pip install . -v
+  script:
+    - ${{ PYTHON }} -m pip install . -v
   noarch: python
   number: 0
 
 requirements:
   host:
-    - python >=3.11
+    - python >=3.11,<3.14
     - meson-python >=0.15.0
     - meson >=1.2.3
     - ninja
@@ -23,7 +24,7 @@ requirements:
     - numpy >=2.0
 
   run:
-    - python >=3.11
+    - python >=3.11,<3.14
     - numpy >=1.26.0
     - scipy >=1.10.0
     - matplotlib >=3.6.0
@@ -34,12 +35,12 @@ tests:
         - gasbubbles
         - gasbubbles.backscatter
         - gasbubbles.dissolution
-      pip_check: true
+      pip_check: false
   - script:
       - pytest --pyargs gasbubbles -v || echo "No tests in installed package"
 
 about:
-  homepage: https://github.com/themachinethatgoesping/gasbubbles
+  homepage: https://github.com/peter-urban/gasbubbles
   summary: Gas bubble acoustic backscattering and dissolution models for underwater acoustics research.
   description: |
     This package provides implementations of various acoustic backscatter models

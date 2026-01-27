@@ -42,19 +42,19 @@ requires-python = '>=3.11, <3.15'
 dependencies = [
     'numpy >= 1.26.0',
     'scipy >= 1.10.0',
-    'matplotlib >= 3.6.0', "echosms>=0.17.0,<0.18",
+    'matplotlib >= 3.6.0',
 ]
 
 [project.optional-dependencies]
 echosms = [
-    'echosms',
+    'echosms>=0.17.0,<0.18',
 ]
 test = [
     'pytest >= 7.0',
 ]
 dev = [
     'pytest >= 7.0',
-    'echosms',
+    'echosms>=0.17.0,<0.18',
 ]
 
 [project.urls]
