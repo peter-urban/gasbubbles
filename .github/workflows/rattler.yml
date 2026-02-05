@@ -20,8 +20,6 @@ jobs:
   build:
     name: Build package
     runs-on: ubuntu-latest
-    env:
-      ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_API_TOKEN }}
     steps:
       - uses: actions/checkout@v4
       
@@ -32,7 +30,7 @@ jobs:
           build-args: --channel themachinethatgoesping --channel https://prefix.dev/conda-forge
 
       - name: Upload to Anaconda
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && env.ANACONDA_API_TOKEN != ''
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
           # Install anaconda-client
           pip install anaconda-client
@@ -42,6 +40,8 @@ jobs:
           # Upload all .conda and .tar.bz2 files
           find $PACKAGE_DIR -name "*.conda" -o -name "*.tar.bz2" | while read package; do
             echo "Uploading ${package}"
-            anaconda -t "$ANACONDA_API_TOKEN" upload --user themachinethatgoesping --force "${package}"
+            anaconda -t $ANACONDA_API_TOKEN upload --user themachinethatgoesping --force "${package}"
           done
         shell: bash
+        env:
+          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_API_TOKEN }}

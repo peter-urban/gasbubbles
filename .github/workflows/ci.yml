@@ -36,11 +36,11 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pytest numpy scipy matplotlib meson ninja echosms
+          pip install pytest numpy scipy matplotlib
 
       - name: Install package
         run: |
-          pip install .
+          pip install -e .
 
       - name: Run tests
         run: |
