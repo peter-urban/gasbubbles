@@ -42,7 +42,7 @@ requires-python = '>=3.11, <3.15'
 dependencies = [
     'numpy >= 1.26.0',
     'scipy >= 1.10.0',
-    'matplotlib >= 3.6.0', "echosms>=0.17.0,<0.18",
+    'matplotlib >= 3.6.0', "echosms>=0.17.0,<0.18", "jupyterlab-execute-time>=3.3.0,<4",
 ]
 
 [project.optional-dependencies]
@@ -90,6 +90,12 @@ pytest = ">=9.0.2,<10"
 ipympl = ">=0.10.0,<0.11"
 tqdm = ">=4.67.1,<5"
 pandas = ">=3.0.0,<4"
+xarray = ">=2024.1.0"
+compilers = ">=1.0"
+meson-python = ">=0.19.0,<0.20"
+ninja = ">=1.13.2,<2"
+netcdf4 = ">=1.7.4,<2"
+nbmake = ">=1.5.5,<2"
 
 # Note: We don't use pixi pypi-dependencies for editable installs with meson-python
 # because it caches temporary build tool paths. Use 'pixi run dev-install' instead.
@@ -101,6 +107,9 @@ echosms = { features = ["echosms"], solve-group = "default" }
 test = { features = ["test"], solve-group = "default" }
 
 [tool.pixi.tasks]
-init = "pip install ."
+install-tamoc = "pip install --no-build-isolation --editable subprojects/tamoc"
+init = { cmd = "pip install --no-build-isolation --editable .", depends-on = ["install-tamoc"] }
 test = { cmd = "pytest python/tests/", depends-on = ["init"] }
 jupyter = { cmd = "jupyter lab ipynb", depends-on = ["init"] }
+test_notebooks = "python test_notebooks.py"
+clean_notebooks = "python clean_notebooks.py"
