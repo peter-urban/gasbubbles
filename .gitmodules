@@ -1,0 +1,3 @@
+[submodule "subprojects/tamoc"]
+	path = subprojects/tamoc
+	url = https://github.com/peter-urban/tamoc.git
