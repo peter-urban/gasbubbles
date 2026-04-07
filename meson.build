@@ -18,8 +18,7 @@ if get_option('build_pythonmodule').enabled()
     pymod = import('python').find_installation(get_option('python_path'), pure: false)
 
     # Optional: for future C++ bindings
-    # Use sysconfig so this works on Windows (no .pc files there)
-    python3_dep = pymod.dependency(method: 'sysconfig')
+    # python3_dep = pymod.dependency()
     # pybind11_dep = dependency('pybind11', version : '>=2.10.0', required: false)
 
     message('python module install directory:', pymod.get_install_dir(subdir: projectnamespace))
