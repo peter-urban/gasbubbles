@@ -81,7 +81,7 @@ install = ['--tags=runtime,python-runtime']
 
 [tool.pixi.workspace]
 channels = ["conda-forge"]
-platforms = ["linux-64"]
+platforms = ["linux-64", "win-64"]
 
 [tool.pixi.dependencies]
 jupyterlab = ">=4.5.3,<5"
@@ -96,6 +96,8 @@ meson-python = ">=0.19.0,<0.20"
 ninja = ">=1.13.2,<2"
 netcdf4 = ">=1.7.4,<2"
 nbmake = ">=1.5.5,<2"
+pkg-config = ">=0.29.2,<0.30"
+python = "3.14.*"
 
 # Note: We don't use pixi pypi-dependencies for editable installs with meson-python
 # because it caches temporary build tool paths. Use 'pixi run dev-install' instead.

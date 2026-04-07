@@ -16,7 +16,7 @@ projectnamespace = 'gasbubbles'
 # -- python modules --
 if get_option('build_pythonmodule').enabled()
     pymod = import('python').find_installation(get_option('python_path'), pure: false)
-    python3_dep = pymod.dependency()
+    #python3_dep = pymod.dependency()
     
     # Optional: for future C++ bindings
     # pybind11_dep = dependency('pybind11', version : '>=2.10.0', required: false)
