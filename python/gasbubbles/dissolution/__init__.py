@@ -46,22 +46,6 @@ from .environment import (
     NITROGEN,
     OXYGEN,
 )
-from .rise_velocity import (
-    BubbleRiseModel,
-    BubbleShape,
-    bubble_rise_velocity_clift,
-    bubble_rise_velocity_leifer,
-    bubble_rise_velocity_woolf,
-    bubble_shape_regime,
-    get_rise_velocity_model,
-)
-from .dissolution import (
-    BubbleDissolutionResult,
-    simulate_bubble_rise,
-    simulate_bubble_population,
-    sherwood_number,
-    mass_transfer_coefficient,
-)
 from .bubble_shape import (
     BubbleShapeRegime,
     BubbleShapeResult,
